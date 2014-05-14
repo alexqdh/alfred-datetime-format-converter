@@ -24,8 +24,11 @@ def parse_query_value(query_str):
                 if query_str.isdigit() and len(query_str) == 13:
                     query_str = query_str[:10]
                 d = epoch(float(query_str))
+                if query_str.isdigit() and len(query_str) == 8:
+                    query_str = str(query_str) + " 00:00:00"
+                    d = parse(query_str + " +0800")
             except ValueError:
-                d = parse(str(query_str)+" +0800")
+                d = parse(str(query_str) + " +0800")
     except (TypeError, ValueError):
         d = None
     return d

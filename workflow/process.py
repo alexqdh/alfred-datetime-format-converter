@@ -25,7 +25,7 @@ def parse_query_value(query_str):
                     query_str = query_str[:10]
                 d = epoch(float(query_str))
             except ValueError:
-                d = parse(str(query_str))
+                d = parse(str(query_str)+" +0800")
     except (TypeError, ValueError):
         d = None
     return d
@@ -43,7 +43,7 @@ def alfred_items_for_value(value):
     item_value = calendar.timegm(value.datetime.utctimetuple())
     results.append(alfred.Item(
         title=str(item_value),
-        subtitle=u'UTC Timestamp',
+        subtitle=u'GMT +0800 Timestamp',
         attributes={
             'uid': alfred.uid(index),
             'arg': item_value,
@@ -54,6 +54,8 @@ def alfred_items_for_value(value):
 
     # Various formats
     formats = [
+        # 1937-01-01
+        ("%Y-%m-%d", ''),
         # 1937-01-01 12:00:27
         ("%Y-%m-%d %H:%M:%S", ''),
         # 19 May 2002 15:21:36
